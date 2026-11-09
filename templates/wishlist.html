@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% from '_m.html' import pcard with context %}{% block body %}<h2>{{t('wishlist')}}</h2><div class="grid">{% for x in prods %}{{pcard(x)}}{% else %}<p>{{t('none')}}</p>{% endfor %}</div>{% endblock %}

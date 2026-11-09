@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block body %}<h2>{{t('signup')}}</h2><form method="post" class="card" autocomplete="off">
+<label>{{t('full_name')}}<input name="name" value="{{f.get('name','')}}" required></label>
+<label>{{t('contact')}}<input name="contact" value="{{f.get('contact','')}}" required placeholder="03xx... / name@email.com"></label>
+<label>{{t('password')}}<span class="row"><input type="password" name="password" required><button type="button" class="mini eye">👁</button></span></label>
+<label>{{t('confirm')}}<input type="password" name="confirm" required></label>
+<p><b>{{t('who')}}</b></p><div class="row"><label class="opt"><input type="radio" name="role" value="seller" {{'checked' if f.get('role')!='buyer'}}> 🛒 {{t('seller')}}</label><label class="opt"><input type="radio" name="role" value="buyer" {{'checked' if f.get('role')=='buyer'}}> 👜 {{t('buyer')}}</label></div>
+<button>{{t('continue')}}</button></form><p class="c"><a href="{{url_for('kora.login')}}">{{t('login')}}</a></p>{% endblock %}

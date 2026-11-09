@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block body %}<h2>{{t('demo')}}</h2>
+{% for k,l,n,e in [('seller',t('seller_demo'),'Ahmed Khan · Ali Surgical Works','seller@kora.demo'),('buyer',t('buyer_demo'),'Sarah Williams','buyer.demo@kora.pk')] %}
+<form method="post" action="{{url_for('kora.demo_login',key=k)}}" class="card"><span class="badge">DEMO</span><div class="row"><div class="av">{{n[0]}}</div><div><b>{{l}}</b><br>{{n}}<br><small>{{e}}</small></div></div><button>{{t('one_tap')}}</button></form>{% endfor %}
+<p class="c"><a href="{{url_for('kora.index')}}">←</a></p>{% endblock %}

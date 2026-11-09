@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% from '_m.html' import tcard with context %}{% block body %}<h2>{{t('chat')}}</h2>{% for x in th %}{{tcard(x)}}{% else %}<p>{{t('none')}}</p>{% endfor %}{% endblock %}

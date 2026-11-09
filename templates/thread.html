@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% from '_m.html' import av with context %}{% block body %}
+<div class="card row">{{av(o)}}<div><b>{{o.name}}</b>{% if o.role=='staff' %} ✔{% endif %}<br><small>{{o.title or t(o.role)}} · <span class="on">●</span> {{t('online')}}</small></div></div>
+<div id="msgs">{% for m in msgs %}<div class="b {{'me' if m.mine}}" dir="auto"><span class="shown">{{m.shown}}</span><span class="orig" hidden>{{m.body}}</span>
+{% if m.tr %}<br><small>{{t('translated_from')}} {{'اردو' if m.lang=='ur' else 'English'}} · <a href="#" class="tr-toggle" data-a="{{t('view_orig')}}" data-b="{{t('view_tr')}}">{{t('view_orig')}}</a></small>{% elif m.unavail %}<br><small>{{t('tr_unavailable')}}</small>{% endif %}
+{% if m.attach %}<br><img class="att" src="{{url_for('static',filename='uploads/'+m.attach)}}">{% endif %}<small class="tm">{{m.time}} {% if m.mine %}{{'✓✓' if m.read else '✓'}}{% endif %}</small></div>{% endfor %}</div>
+<div class="chips"><small>{{t('quick')}}:</small>{% for c in chips %}<form method="post" action="{{url_for('kora.send',cid=cid)}}"><input type="hidden" name="body" value="{{c}}"><button class="chip">{{c}}</button></form>{% endfor %}</div>
+<form method="post" action="{{url_for('kora.send',cid=cid)}}" enctype="multipart/form-data" class="sendbar"><label class="mini">📎<input type="file" name="file" accept="image/*" hidden></label><input name="body" placeholder="{{t('type_msg')}}" autocomplete="off"><button class="mini">➤</button></form>{% endblock %}

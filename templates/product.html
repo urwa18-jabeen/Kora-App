@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block body %}<a href="javascript:history.back()">←</a><div class="card"><img class="hero" src="{{url_for('kora.pimg',pid=p.id)}}"><h2>{{p.name}}</h2><small>{{p.category}}</small>
+<p>{{p.descr}}</p><p><b>{{p.price|rs}}</b> · MOQ {{p.moq}} · {{p.stock}} in stock · ⭐ {{p.rating}}</p><p>📍 {{p.location}}<br>{{t('specs')}}: {{p.specs}}<br>{{t('custom')}}: {{'✔' if p.custom else '✖'}}</p>
+{% if p.seller_id %}<a href="{{url_for('kora.seller_public',sid=p.seller_id)}}">{{t('view_seller')}}: {{p.seller_name}}</a>{% else %}<small>{{p.seller_name}}</small>{% endif %}</div>
+{% if me.role=='buyer' %}<form method="post" action="{{url_for('kora.wish',pid=p.id)}}"><button class="ghost">{{'❤️' if w else '🤍'}} {{t('wishlist')}}</button></form>
+<form method="post" action="{{url_for('kora.place_order',pid=p.id)}}" class="card"><label>{{t('qty')}}<input type="number" name="qty" min="{{p.moq}}" max="{{p.stock}}" value="{{p.moq}}"></label>
+<label>{{t('address')}}<select>{% for a in addrs %}<option>{{a.label}} - {{a.line}}, {{a.city}}</option>{% endfor %}</select></label><button>{{t('order_now')}}</button>{% if demo %}<small>{{t('demo_banner')}}</small>{% endif %}</form>{% endif %}{% endblock %}

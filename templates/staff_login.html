@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block body %}<h2>{{t('staff_login')}}</h2><span class="badge">{{t('private_route')}}</span>
+<form method="post" class="card"><label>Email<input name="contact" required></label><label>{{t('password')}}<input type="password" name="password" required></label><button>{{t('login')}}</button></form>
+<form method="post" action="{{url_for('kora.demo_login',key='helper')}}" class="card"><span class="badge">DEMO</span><div class="row"><div class="av">B</div><div><b>{{t('team_demo')}}</b><br>Bilal Ahmed · KORA-H-001<br><small>helper.demo@kora.pk</small></div></div><button>{{t('one_tap')}}</button></form>{% endblock %}

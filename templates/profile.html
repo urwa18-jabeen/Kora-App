@@ -1,0 +1,20 @@
+{% extends 'base.html' %}{% from '_m.html' import av with context %}{% block body %}
+<div class="card row">{{av(me,70)}}<div><h2>{{me.name}}</h2>{% if p %}{{p.biz}}<br>📍 {{p.city}} · ⭐ {{p.rating}} ({{p.reviews}} {{t('reviews')}})<br>{% endif %}{% if me.staff_id %}{{me.staff_id}} · {{me.title}}<br>{% endif %}<small>{{me.email or ''}} {{me.phone or ''}}</small></div></div>
+{% if p %}<img class="hero" src="{{url_for('kora.ph',e='🏭',h=180) if not p.shop_photo else url_for('static',filename='uploads/'+p.shop_photo)}}">{% endif %}
+<p>{{t('language')}}: <a class="chip" href="{{url_for('kora.setlang',l='ur')}}">اردو</a> <a class="chip" href="{{url_for('kora.setlang',l='en')}}">English</a></p>
+<form method="post" action="{{url_for('kora.profile_save')}}" enctype="multipart/form-data" class="card"><h3>{{t('edit_profile')}}</h3>
+<label>{{t('full_name')}}<input name="name" value="{{me.name}}"></label><label>{{t('profile_photo')}}<input type="file" name="photo" accept="image/*"></label>
+{% if p %}<label>{{t('biz')}}<input name="biz" value="{{p.biz or ''}}"></label><label>{{t('descr')}}<textarea name="descr">{{p.descr or ''}}</textarea></label>
+<label>{{t('category_l')}}<select name="category">{% for c in CATS %}<option {{'selected' if p.category==c[0]}}>{{c[0]}}</option>{% endfor %}</select></label>
+<div class="row"><label>{{t('city')}}<input name="city" value="{{p.city or ''}}"></label><label>{{t('postal')}}<input name="postal" value="{{p.postal or ''}}"></label></div>
+<label>{{t('road')}}<input name="road" value="{{p.road or ''}}"></label><label>{{t('area')}}<input name="area" value="{{p.area or ''}}"></label><label>{{t('landmark')}}<input name="landmark" value="{{p.landmark or ''}}"></label>
+<label>{{t('shop_photo')}}<input type="file" name="shop_photo" accept="image/*"></label>{% endif %}<small>{{t('cat_edit_note')}}</small><button>{{t('save')}}</button></form>
+{% if p %}<div class="card"><h3>🏦 {{t('bank')}}</h3><small>{{t('bank_note')}}</small>{% for a in accts %}<div class="row"><div class="grow"><b>{{a.provider}}</b> ****{{a.last4}} {% if a.is_default %}<span class="badge">{{t('default')}}</span>{% endif %}<br><small>{{a.holder}} · {{a.nickname}}</small></div><form method="post" action="{{url_for('kora.pay_del',i=a.id)}}"><button class="mini alt">🗑</button></form></div>{% endfor %}
+<form method="post" action="{{url_for('kora.pay_add')}}"><select name="provider">{% for x in PROVIDERS %}<option>{{x}}</option>{% endfor %}</select><input name="holder" placeholder="{{t('holder')}}"><input name="number" placeholder="{{t('acc_no')}}"><input name="nick" placeholder="{{t('nick')}}"><label><input type="checkbox" name="default"> {{t('make_default')}}</label><button>{{t('add')}}</button></form></div>
+<div class="card"><h3>⭐ {{t('reviews')}}</h3>{% for r in revs %}<small><b>{{r.author}}</b> {{'⭐'*r.rating}} {{r.text}}</small><br>{% endfor %}{% if demo %}<small>{{t('recent_tx')}}</small>{% endif %}</div>{% endif %}
+{% if me.role=='buyer' %}<a class="btn ghost" href="{{url_for('kora.wishlist')}}">🤍 {{t('wishlist')}}</a><a class="btn ghost" href="{{url_for('kora.orders')}}">📦 {{t('orders')}}</a>
+<div class="card"><h3>{{t('addresses')}}</h3>{% for a in addrs %}<div class="row"><div class="grow"><b>{{a.label}}</b><br><small>{{a.line}}, {{a.city}}, {{a.country}} {{a.postal}}</small></div><form method="post" action="{{url_for('kora.addr_del',i=a.id)}}"><button class="mini alt">🗑</button></form></div>{% endfor %}
+<form method="post" action="{{url_for('kora.addr_add')}}"><input name="label" placeholder="{{t('label')}}"><input name="line" placeholder="{{t('line')}}"><input name="city" placeholder="{{t('city')}}"><input name="country" placeholder="{{t('country')}}"><input name="postal" placeholder="{{t('postal')}}"><button>{{t('add')}}</button></form></div>{% endif %}
+<a class="btn ghost" href="{{url_for('kora.help_')}}">❓ {{t('help')}}</a>
+{% if demo %}<form method="post" action="{{url_for('kora.demo_reset')}}"><button class="alt">♻ {{t('reset_demo')}}</button></form>{% endif %}
+<a class="btn ghost" href="{{url_for('kora.logout')}}">{{t('exit_demo') if demo else t('logout')}}</a>{% endblock %}

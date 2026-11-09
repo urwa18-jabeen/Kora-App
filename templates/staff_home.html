@@ -1,0 +1,2 @@
+{% extends 'base.html' %}{% from '_m.html' import ocard with context %}{% block body %}<h2>{{t('queue')}}</h2>{% for o in orders %}{{ocard(o)}}{% endfor %}
+<h3>{{t('audit')}}</h3><div class="card">{% for a in log %}<small>{{a.created}} · {{a.name}} · {{a.action}} · {{a.detail}}</small><br>{% else %}-{% endfor %}</div>{% endblock %}

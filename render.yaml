@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: kora-demo
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers 1 --threads 4 --bind 0.0.0.0:$PORT main:app
+    healthCheckPath: /
+    envVars:
+      - key: KORA_DEMO_ONLY
+        value: "1"
+      - key: KORA_SHOW_OTP
+        value: "0"
+      - key: KORA_SECRET
+        generateValue: true

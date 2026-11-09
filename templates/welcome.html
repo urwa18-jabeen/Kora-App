@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block body %}
+<h1 class="big">خوش آمدید<br>Welcome to KORA</h1>
+{% if not session.get('lang') %}<div class="card"><p>زبان کا انتخاب کریں<br>Select Your Language</p>
+<a class="btn" href="{{url_for('kora.setlang',l='ur')}}">اردو</a><a class="btn alt" href="{{url_for('kora.setlang',l='en')}}">English</a></div>
+{% else %}<div class="card"><a class="btn" href="{{url_for('kora.signup')}}">{{t('signup')}}</a><a class="btn ghost" href="{{url_for('kora.login')}}">{{t('login')}}</a>
+<a class="btn alt" href="{{url_for('kora.demo_page')}}">{{t('demo')}}</a>
+<p class="c"><a href="{{url_for('kora.setlang',l='ur' if lang=='en' else 'en')}}">{{'اردو' if lang=='en' else 'English'}}</a></p></div>{% endif %}{% endblock %}

@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block body %}<h2>{{t('verify_title')}}</h2><form method="post" class="card c"><p>{{t('enter_otp')}}</p>
+<div class="otp" dir="ltr">{% for i in range(6) %}<input class="ob" inputmode="numeric" maxlength="1">{% endfor %}</div><input type="hidden" name="code" id="code">
+{% if show %}<small class="otphint">({{t('demo_otp')}}: {{p.otp}})</small>{% endif %}<button>{{t('verify')}}</button></form>
+<form method="post" action="{{url_for('kora.resend')}}" class="c"><button class="ghost">{{t('resend')}}</button></form>{% endblock %}

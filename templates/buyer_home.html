@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% from '_m.html' import pcard,tcard,searchbox with context %}{% block body %}
+{{searchbox(q,cat,mp)}}
+{% if not filt %}<div class="chips">{% for c in CATS %}<a class="chip" href="{{url_for('kora.home',cat=c[0])}}">{{c[1]}} {{c[0].split(' and ')[0]}}</a>{% endfor %}</div>{% endif %}
+<h3>{{t('results') if filt else t('recommended')}}</h3>{% if not prods %}<p>{{t('none')}}</p>{% endif %}<div class="grid">{% for x in prods %}{{pcard(x)}}{% endfor %}</div>
+<h3>{{t('messages')}}</h3>{% for x in th %}{{tcard(x)}}{% endfor %}{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% from '_m.html' import pcard,ocard,tcard,searchbox with context %}{% block body %}
+<div class="earn"><b>{{t('hello')}}, {{me.name}}!</b><br><small>{{p.biz}}</small><br>{{t('earn')}}<h2>{{a|rs}}</h2>
+{% if pct is not none %}<span class="badge">{{'+' if pct>=0}}{{pct}}% {{t('vs_last')}}</span>{% endif %}
+<svg viewBox="0 0 100 30" width="100%" height="50">{% for v in [8,12,10,16,14,20,26] %}<rect x="{{loop.index0*14+2}}" y="{{30-v}}" width="9" height="{{v}}" fill="#fff8"/>{% endfor %}</svg></div>
+<a class="btn ghost" href="{{url_for('kora.catalogue')}}">📋 {{t('manage')}}</a>
+{{searchbox(q,cat,mp)}}
+{% for o in found %}{{ocard(o)}}{% endfor %}
+<h3>{{t('results') if filt else t('recommended')}}</h3>{% if not prods %}<p>{{t('none')}}</p>{% endif %}<div class="grid">{% for x in prods %}{{pcard(x)}}{% endfor %}</div>
+<h3>{{t('messages')}}</h3>{% for x in th %}{{tcard(x)}}{% endfor %}{% endblock %}

@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block body %}<h2>{{t('notifications')}}</h2><form method="post"><button class="ghost">{{t('mark_read')}}</button></form>{% for n in ns %}<div class="card {{'' if n.read else 'new'}}">{{n.text}}<br><small>{{n.created}}</small></div>{% else %}<p>{{t('none')}}</p>{% endfor %}{% endblock %}
